@@ -68,6 +68,30 @@ const recentEssays = JOURNAL_POSTS.slice(0, 2)
           <p class="font-body text-base leading-relaxed mb-6 opacity-90">
             <strong>Guest:</strong> {FEATURED_EPISODES[0].guestBio}
           </p>
+
+          {/* Inline audio player — episode preview (illustrative for demo) */}
+          <div class="bg-bone/10 border border-bone/20 rounded p-4 mb-6 flex items-center gap-4">
+            <button
+              type="button"
+              aria-label="Play preview"
+              class="shrink-0 w-12 h-12 rounded-full bg-coral hover:bg-coral-deep transition-colors flex items-center justify-center"
+              style="color: var(--color-purple-deep)"
+            >
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
+                <path d="M0 0v16l14-8z" />
+              </svg>
+            </button>
+            <div class="flex-1 min-w-0">
+              <p class="font-mono text-xs uppercase tracking-wider opacity-75 mb-1">Preview · 1:24 / {FEATURED_EPISODES[0].durationMin}:00</p>
+              <div class="h-2 bg-bone/15 rounded relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-[8%] bg-coral rounded"></div>
+              </div>
+            </div>
+            <p class="font-mono text-xs uppercase tracking-wider opacity-75 shrink-0 hidden md:block">
+              ⨯ 1.0
+            </p>
+          </div>
+
           <a href={`/episodes/${FEATURED_EPISODES[0].slug}`} class="btn-coral">
             Read the transcript &rarr;
           </a>
