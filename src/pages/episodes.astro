@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { EPISODES } from '../lib/catalog'
+import { SHOW } from '../lib/config'
+
+const exitTypes = Array.from(new Set(EPISODES.map((e) => e.exitType)))
+const industries = Array.from(new Set(EPISODES.map((e) => e.industryBefore)))
+const years = Array.from(new Set(EPISODES.map((e) => e.year))).sort((a, b) => b - a)
+---
+
+<BaseLayout
+  title="Episodes — Cypress Hour"
+  description="207 episodes deep. Searchable archive, filterable by the choice the guest made, not the industry they left."
+>
+  <section class="px-4 md:px-6 pt-16 pb-12">
+    <div class="reading-column-wide immersive-reveal">
+      <p class="eyebrow mb-6">/ The archive</p>
+      <h1 class="text-4xl md:text-6xl font-display font-black text-purple leading-[0.95] mb-6">
+        {SHOW.episodes} episodes. Searchable.
+      </h1>
+      <p class="font-serif italic text-xl text-purple-deep leading-snug max-w-2xl">
+        Find the conversation about the choice you are considering, not the latest episode. Filter by exit type, industry before, or year.
+      </p>
+    </div>
+  </section>
+
+  {/* Filter UI — purely visual on the demo, search would back this in production */}
+  <section class="px-4 md:px-6 py-8 section-rule">
+    <div class="reading-column-wide">
+      <form class="grid gap-4 md:grid-cols-3 mb-6">
+        <div>
+          <label class="font-mono text-xs text-purple uppercase tracking-wider mb-2 block">Exit type</label>
+          <select class="input-purple">
+            <option>All exit types</option>
+            {exitTypes.map((t) => <option value={t}>{t}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="font-mono text-xs text-purple uppercase tracking-wider mb-2 block">Industry before</label>
+          <select class="input-purple">
+            <option>All industries</option>
+            {industries.map((i) => <option value={i}>{i}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="font-mono text-xs text-purple uppercase tracking-wider mb-2 block">Year</label>
+          <select class="input-purple">
+            <option>All years</option>
+            {years.map((y) => <option value={y}>{y}</option>)}
+          </select>
+        </div>
+      </form>
+      <div class="flex items-baseline justify-between">
+        <p class="font-mono text-xs text-stone uppercase tracking-wider">{EPISODES.length} of {SHOW.episodes} shown · 199 in the members archive</p>
+        <a href="/membership" class="font-mono text-xs text-coral-deep hover:text-purple uppercase tracking-wider">Become a member &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Episode list — vertical column */}
+  <section class="px-4 md:px-6 py-8">
+    <div class="reading-column-wide space-y-4">
+      {EPISODES.map((ep) => (
+        <a href={`/episodes/${ep.slug}`} class="block episode-card">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="tag-meta">Ep. {ep.number}</span>
+            <span class="tag-meta">{ep.exitType}</span>
+            <span class="tag-meta">{ep.industryBefore}</span>
+            <span class="tag-meta">{ep.durationMin} min</span>
+            <span class="tag-meta">{ep.publishedAt}</span>
+            {ep.isMembersOnly && <span class="tag-meta" style="color:var(--color-coral-deep);border-color:var(--color-coral)">Members only</span>}
+          </div>
+          <h3 class="text-2xl md:text-3xl font-display font-black text-purple mb-3 leading-tight">
+            {ep.title}
+          </h3>
+          <p class="font-serif italic text-lg text-purple-deep mb-3 leading-snug">
+            "{ep.pullQuote}"
+          </p>
+          <p class="font-body text-sm text-stone leading-relaxed">
+            <strong class="text-ink">{ep.guest}.</strong> {ep.guestBio}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="font-serif italic text-lg text-stone leading-relaxed">
+        199 more episodes back to ep. 1 (December 2022). Every episode searchable, transcripted, and chapter-marked, behind the membership wall.
+      </p>
+      <a href="/membership" class="btn-purple mt-6">Unlock the full archive &rarr;</a>
+    </div>
+  </section>
+</BaseLayout>

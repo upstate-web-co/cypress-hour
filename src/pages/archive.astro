@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { EPISODES } from '../lib/catalog'
+
+const byExit = EPISODES.reduce<Record<string, typeof EPISODES>>((acc, ep) => {
+  acc[ep.exitType] = acc[ep.exitType] || []
+  acc[ep.exitType].push(ep)
+  return acc
+}, {})
+---
+
+<BaseLayout
+  title="Archive — Cypress Hour"
+  description="Four years of long conversations, organized by the choice the guest made."
+>
+  <section class="px-4 md:px-6 pt-16 pb-12 immersive-reveal">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ Browse by choice</p>
+      <h1 class="text-4xl md:text-6xl font-display font-black text-purple leading-[0.95] mb-6">
+        Browse by the choice, not the industry.
+      </h1>
+      <p class="font-serif italic text-xl text-purple-deep leading-snug">
+        Industry is the wrong axis. The choice is the right one.
+      </p>
+    </div>
+  </section>
+
+  {Object.entries(byExit).map(([exitType, eps]) => (
+    <section class="px-4 md:px-6 py-12 section-rule">
+      <div class="reading-column-wide">
+        <p class="eyebrow mb-2">/ {exitType}</p>
+        <h2 class="text-3xl md:text-4xl font-display font-black text-purple mb-8 leading-tight">
+          {eps.length} {eps.length === 1 ? 'conversation' : 'conversations'}
+        </h2>
+        <div class="space-y-4">
+          {eps.map((ep) => (
+            <a href={`/episodes/${ep.slug}`} class="block episode-card">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-meta">Ep. {ep.number}</span>
+                <span class="tag-meta">{ep.industryBefore}</span>
+                <span class="tag-meta">{ep.durationMin} min</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-display font-black text-purple mb-2 leading-tight">
+                {ep.title}
+              </h3>
+              <p class="font-body text-sm text-stone leading-relaxed">
+                {ep.guestBio.split('.').slice(0, 2).join('.')}.
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="purple-strip px-4 md:px-6 py-16">
+    <div class="reading-column">
+      <p class="eyebrow mb-4" style="color:var(--color-coral)">/ Members only</p>
+      <h2 class="text-3xl md:text-4xl font-display font-black mb-6 leading-tight">
+        199 more episodes — back to ep. 1, December 2022.
+      </h2>
+      <p class="font-serif italic text-lg leading-snug mb-8 opacity-95">
+        Every conversation, every transcript, every chapter marker. $8 a month.
+      </p>
+      <a href="/membership" class="btn-coral">Become a member &rarr;</a>
+    </div>
+  </section>
+</BaseLayout>

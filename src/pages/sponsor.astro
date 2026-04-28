@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { SPONSORSHIP_TIERS } from '../lib/catalog'
+import { SHOW } from '../lib/config'
+---
+
+<BaseLayout
+  title="Sponsor a read — Cypress Hour"
+  description="Rate card and brief form. Pre-roll, mid-roll, post-roll, or a five-minute dedicated segment."
+>
+  <section class="px-4 md:px-6 pt-16 pb-12 immersive-reveal">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ Sponsor a read</p>
+      <h1 class="text-4xl md:text-6xl font-display font-black text-purple leading-[0.95] mb-6">
+        Sponsor a read.
+      </h1>
+      <p class="font-serif italic text-xl text-purple-deep leading-snug mb-8">
+        Host-read, scripted with you, audio sign-off before publish, analytics share two weeks after. Here is the menu, here is the form.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-y border-line">
+        <div>
+          <div class="font-display text-3xl text-coral leading-none">{SHOW.weeklyListeners.toLocaleString()}</div>
+          <p class="font-mono text-xs text-stone uppercase tracking-wider mt-2">weekly listeners</p>
+        </div>
+        <div>
+          <div class="font-display text-3xl text-coral leading-none">87%</div>
+          <p class="font-mono text-xs text-stone uppercase tracking-wider mt-2">complete-rate</p>
+        </div>
+        <div>
+          <div class="font-display text-3xl text-coral leading-none">62%</div>
+          <p class="font-mono text-xs text-stone uppercase tracking-wider mt-2">25–44 yr-old</p>
+        </div>
+        <div>
+          <div class="font-display text-3xl text-coral leading-none">$110K</div>
+          <p class="font-mono text-xs text-stone uppercase tracking-wider mt-2">median household</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Rate card */}
+  <section class="px-4 md:px-6 py-12 section-rule">
+    <div class="reading-column space-y-6">
+      <p class="eyebrow mb-6">/ Rate card</p>
+      {SPONSORSHIP_TIERS.map((tier) => (
+        <article class="episode-card">
+          <div class="flex flex-wrap items-baseline justify-between gap-3 mb-4">
+            <h3 class="text-2xl md:text-3xl font-display font-black text-purple leading-tight">
+              {tier.title} · {tier.durationSeconds}s
+            </h3>
+            <p class="font-display text-2xl text-coral-deep leading-none">${tier.flatFeeUsd.toLocaleString()}</p>
+          </div>
+          <p class="font-body text-base text-ink leading-relaxed">{tier.brief}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* Brief form */}
+  <section class="purple-strip px-4 md:px-6 py-16">
+    <div class="reading-column">
+      <p class="eyebrow mb-6" style="color:var(--color-coral)">/ Brief form</p>
+      <h2 class="text-3xl md:text-4xl font-display font-black mb-6 leading-tight">
+        Send the brief.
+      </h2>
+      <p class="font-serif italic text-lg leading-snug mb-8 opacity-95">
+        Five fields. We answer within three business days. We say no more often than yes — that is the deal.
+      </p>
+      <form class="space-y-4 max-w-md">
+        <div>
+          <label class="font-mono text-xs uppercase tracking-wider mb-2 block opacity-80">Company</label>
+          <input type="text" required class="input-purple" style="background:var(--color-bone);color:var(--color-ink)" />
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-wider mb-2 block opacity-80">Product</label>
+          <input type="text" required class="input-purple" style="background:var(--color-bone);color:var(--color-ink)" />
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-wider mb-2 block opacity-80">Target message · ≤50 words</label>
+          <textarea rows="3" required maxlength="350" class="input-purple" style="background:var(--color-bone);color:var(--color-ink)"></textarea>
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-wider mb-2 block opacity-80">Preferred tier</label>
+          <select required class="input-purple" style="background:var(--color-bone);color:var(--color-ink)">
+            {SPONSORSHIP_TIERS.map((t) => <option value={t.slug}>{t.title} · ${t.flatFeeUsd}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-wider mb-2 block opacity-80">Reply email</label>
+          <input type="email" required class="input-purple" style="background:var(--color-bone);color:var(--color-ink)" />
+        </div>
+        <button type="submit" class="btn-coral w-full justify-center">Submit brief &rarr;</button>
+      </form>
+      <p class="font-mono text-xs mt-6 opacity-80">
+        This is a portfolio demo — submissions are illustrative.
+      </p>
+    </div>
+  </section>
+
+  {/* What we do not do */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ What we do not do</p>
+      <ul class="space-y-3 font-body text-base leading-relaxed text-ink">
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">×</span> Programmatic ad networks. All sponsorships are direct.</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">×</span> Affiliate links or revenue-share deals.</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">×</span> Sponsorships from companies the host is invested in.</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">×</span> "Sponsored episodes" — every episode is editorially independent.</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">×</span> Crypto, gambling, or supplements. Not a moral position; a positioning one.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

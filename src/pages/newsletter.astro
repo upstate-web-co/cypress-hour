@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Newsletter — Cypress Hour"
+  description="One email per episode. The pull quote, the chapters, the link. That is the entire format."
+>
+  <section class="px-4 md:px-6 pt-16 pb-12 immersive-reveal">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ Newsletter</p>
+      <h1 class="text-4xl md:text-6xl font-display font-black text-purple leading-[0.95] mb-6">
+        One email per episode.
+      </h1>
+      <p class="font-serif italic text-xl text-purple-deep leading-snug mb-10">
+        The pull quote, the chapter list, the transcript link. That is the entire format. Free. No drip campaign. No upsell. No "5 things I learned."
+      </p>
+
+      <form class="space-y-4">
+        <input type="email" required placeholder="Email" class="input-purple max-w-md" />
+        <div>
+          <button type="submit" class="btn-purple">Sign up &rarr;</button>
+        </div>
+      </form>
+      <p class="font-mono text-xs text-stone mt-4">Portfolio demo — submissions are illustrative.</p>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ What you will get</p>
+      <ul class="space-y-3 font-body text-base leading-relaxed text-ink">
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">→</span> One email per episode (weekly).</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">→</span> The pull quote and the chapter list.</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">→</span> A direct link to the transcript (members) or audio (public).</li>
+        <li class="flex gap-3"><span class="text-coral font-mono text-sm mt-1">→</span> Nothing else. No "from the archive" filler.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

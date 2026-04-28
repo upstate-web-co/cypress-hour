@@ -1,0 +1,92 @@
+---
+import '../styles/global.css'
+import SEOHead from '../components/SEOHead.astro'
+import DisclaimerBanner from '../components/DisclaimerBanner.astro'
+import { SITE } from '../lib/config'
+
+interface Props {
+  title?: string
+  description?: string
+  ogImage?: string
+  schema?: Record<string, unknown>
+}
+
+const { title, description, ogImage, schema } = Astro.props
+
+const navLinks = [
+  { href: '/episodes', label: 'Episodes' },
+  { href: '/archive', label: 'Archive' },
+  { href: '/membership', label: 'Membership' },
+  { href: '/sponsor', label: 'Sponsor' },
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEOHead title={title} description={description} ogImage={ogImage} schema={schema} />
+  </head>
+  <body class="min-h-screen bg-bone text-ink antialiased">
+    <DisclaimerBanner />
+
+    <header class="border-b border-line bg-bone sticky top-0 z-40">
+      <nav class="mx-auto flex max-w-3xl items-center justify-between px-4 md:px-6 py-4">
+        <a href="/" class="font-display text-xl md:text-2xl text-purple font-black leading-none tracking-tight">
+          CYPRESS<span class="text-coral">·</span>HOUR
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          {navLinks.map(({ href, label }) => (
+            <a href={href} class="font-mono text-sm text-purple hover:text-coral transition-colors uppercase tracking-wider">
+              {label}
+            </a>
+          ))}
+        </div>
+        <div class="md:hidden">
+          <a href="/episodes" class="btn-coral py-2 px-3 text-xs">Episodes &rarr;</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-line bg-bone-deep mt-24">
+      <div class="mx-auto max-w-3xl px-4 md:px-6 py-12">
+        <div class="grid gap-8 md:grid-cols-4">
+          <div class="md:col-span-2">
+            <p class="font-display text-2xl text-purple font-black leading-none">
+              CYPRESS<span class="text-coral">·</span>HOUR
+            </p>
+            <p class="mt-4 text-sm text-purple/85 leading-relaxed font-body">{SITE.tagline}</p>
+            <p class="mt-4 font-mono text-xs text-stone">A solo-host weekly podcast — 207 episodes deep — see disclaimer up top for the demo notice.</p>
+          </div>
+          <div>
+            <p class="eyebrow mb-4">/ Listen</p>
+            <ul class="space-y-2 text-sm font-body">
+              <li><a href={SITE.apple} class="text-purple/80 hover:text-coral transition-colors">Apple Podcasts</a></li>
+              <li><a href={SITE.spotify} class="text-purple/80 hover:text-coral transition-colors">Spotify</a></li>
+              <li><a href={SITE.rss} class="text-purple/80 hover:text-coral transition-colors">RSS feed</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow mb-4">/ The Show</p>
+            <ul class="space-y-2 text-sm font-body">
+              <li><a href="/membership" class="text-purple/80 hover:text-coral transition-colors">Membership ($8/mo)</a></li>
+              <li><a href="/sponsor" class="text-purple/80 hover:text-coral transition-colors">Sponsor a read</a></li>
+              <li><a href="/portal" class="text-purple/80 hover:text-coral transition-colors">Member portal</a></li>
+              <li><a href="/journal" class="text-purple/80 hover:text-coral transition-colors">Journal</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-6 border-t border-line flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-stone font-mono">
+          <p>&copy; {new Date().getFullYear()} {SITE.name}. Listener counts, revenue figures, and quotes illustrative — see disclaimer up top.</p>
+          <p>Built by <a href="https://upstate-web.com" class="hover:text-coral transition-colors">Upstate Web Co.</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

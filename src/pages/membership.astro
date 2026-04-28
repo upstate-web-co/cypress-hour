@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { MEMBERSHIP_TIERS } from '../lib/catalog'
+---
+
+<BaseLayout
+  title="Membership — Cypress Hour"
+  description="$8 a month. Transcripts included. No filler. Members get every episode 24 hours early, the full searchable transcript archive, the Slack mirror, and the AI clip generator."
+>
+  <section class="px-4 md:px-6 pt-16 pb-12 immersive-reveal">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ Membership</p>
+      <h1 class="text-4xl md:text-6xl font-display font-black text-purple leading-[0.95] mb-6">
+        $8 a month. Transcripts included. No filler.
+      </h1>
+      <p class="font-serif italic text-xl text-purple-deep leading-snug">
+        This is not a community. It is access to the show — earlier, deeper, searchable. If you want a community, the Slack mirror is included and you can introduce yourself there. If you do not, every other benefit works without ever opening it.
+      </p>
+    </div>
+  </section>
+
+  {/* Three tiers — vertical stack, plain sentences */}
+  <section class="px-4 md:px-6 py-12 section-rule">
+    <div class="reading-column space-y-12">
+      {MEMBERSHIP_TIERS.map((tier) => (
+        <article class={tier.slug === 'member' ? 'episode-featured episode-card p-8 md:p-10' : 'episode-card p-8 md:p-10'}>
+          <p class="font-mono text-xs uppercase tracking-wider mb-3" style={tier.slug === 'member' ? 'color:var(--color-coral)' : 'color:var(--color-coral-deep)'}>/ {tier.title}</p>
+          <h2 class="text-4xl md:text-5xl font-display font-black mb-2 leading-none" style={tier.slug === 'member' ? '' : 'color:var(--color-purple)'}>
+            {tier.pricePerMonth === 0 ? 'Free' : `$${tier.pricePerMonth}`}
+            {tier.pricePerMonth > 0 && <span class="text-xl opacity-70 ml-2 lowercase">/ month</span>}
+          </h2>
+          {tier.pricePerYear > 0 && (
+            <p class="font-mono text-xs uppercase tracking-wider mb-6 opacity-80">
+              or ${tier.pricePerYear} / year
+            </p>
+          )}
+          <ul class="space-y-3 mb-8 mt-6">
+            {tier.inclusions.map((line) => (
+              <li class="font-body text-base leading-relaxed flex gap-3">
+                <span class="text-coral font-mono text-sm mt-1">→</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={tier.slug === 'public' ? '/episodes' : '#signup'} class={tier.slug === 'member' ? 'btn-coral' : 'btn-purple'}>
+            {tier.cta} &rarr;
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* What this is not — the anti-frames */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ What this is not</p>
+      <div class="space-y-5 font-body text-lg leading-relaxed text-ink">
+        <p>
+          <strong class="font-display text-purple block mb-1">Not a "community."</strong>
+          Slack is included if you want it. Most members never open it. Both are fine.
+        </p>
+        <p>
+          <strong class="font-display text-purple block mb-1">Not "exclusive content."</strong>
+          You are paying for earlier access and transcripts. The show itself is the same one in the public feed, seven days later.
+        </p>
+        <p>
+          <strong class="font-display text-purple block mb-1">Not a charity pitch.</strong>
+          Memberships pay for the show. They do not subsidize it. We will tell you the actual numbers in the host's quarterly letter.
+        </p>
+        <p>
+          <strong class="font-display text-purple block mb-1">Not auto-renewed without warning.</strong>
+          Annual members get an email seven days before renewal. Monthly members can cancel from the portal in two clicks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="signup" class="coral-strip px-4 md:px-6 py-16">
+    <div class="reading-column">
+      <p class="eyebrow mb-6" style="color:var(--color-purple-deep)">/ Sign up</p>
+      <h2 class="text-3xl md:text-4xl font-display font-black mb-6 leading-tight">
+        Become a member.
+      </h2>
+      <form class="space-y-4 max-w-md">
+        <input type="email" required placeholder="Email" class="input-purple" style="background:var(--color-bone)" />
+        <select class="input-purple" style="background:var(--color-bone)">
+          <option>Member · $8 / month</option>
+          <option>Member · $80 / year (save $16)</option>
+          <option>Patron · $40 / month</option>
+          <option>Patron · $400 / year</option>
+        </select>
+        <button type="submit" class="btn-purple w-full justify-center">Continue to checkout &rarr;</button>
+      </form>
+      <p class="font-mono text-xs mt-4 opacity-80">
+        This is a portfolio demo — no real charges, no real members.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

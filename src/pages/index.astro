@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { SITE, SHOW } from '../lib/config'
+import { FEATURED_EPISODES, EPISODES, JOURNAL_POSTS } from '../lib/catalog'
+
+const recent = EPISODES.slice(0, 4)
+const recentEssays = JOURNAL_POSTS.slice(0, 2)
+---
+
+<BaseLayout title={SITE.name} description={SITE.description}>
+  {/* Hero — single column, top-to-bottom narrative read */}
+  <section class="px-4 md:px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+    <div class="reading-column immersive-reveal">
+      <p class="eyebrow mb-6">/ Episode 207 just published · April 22, 2026</p>
+      <h1 class="text-5xl md:text-7xl font-display font-black text-purple leading-[0.95] mb-8">
+        People who walked away from the thing they built.
+      </h1>
+      <p class="font-serif text-2xl md:text-3xl text-purple-deep leading-snug mb-10 italic">
+        A solo-host weekly podcast. <span class="text-coral-deep">{SHOW.episodes} episodes deep.</span> The decision, not the highlight reel. Transcripts included. No filler.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/episodes" class="btn-purple">Browse the archive &rarr;</a>
+        <a href={SITE.apple} class="btn-outline">Apple Podcasts</a>
+        <a href={SITE.spotify} class="btn-outline">Spotify</a>
+      </div>
+      <p class="marginalia mt-8">
+        90-minute average. Founders, executives, athletes, artists, judges. One guest at a time. Recorded since 2022.
+      </p>
+    </div>
+  </section>
+
+  {/* The thesis — pull-quote section */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ The thesis</p>
+      <blockquote class="pull-quote mb-10">
+        Quit something serious — stayed to talk about it.
+      </blockquote>
+      <div class="font-body text-lg leading-relaxed text-ink space-y-5 drop-cap">
+        <p>
+          Most podcasts about quitting are about transformation. This one is not. The guests on Cypress Hour walked away from things they had built — companies, careers, relationships, public roles — and stayed close enough to the decision to talk about what it actually was. Not what it became, in retrospect, after the years had filed off the edges.
+        </p>
+        <p>
+          We record a long conversation. We publish a long episode. We include the transcript. We do not edit out the second-thoughts, because the second-thoughts are the whole subject.
+        </p>
+        <p>
+          The archive is searchable. You can filter by the type of choice — founder walkaway, executive severance, athlete retirement, artist stop, academic exit, public-service exit — instead of by industry. Industry is the wrong axis. The choice is the right one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Featured episode — full bleed */}
+  {FEATURED_EPISODES[0] && (
+    <section class="px-4 md:px-6 py-16 section-rule">
+      <div class="reading-column">
+        <p class="eyebrow mb-6">/ Featured · Episode {FEATURED_EPISODES[0].number}</p>
+        <article class="episode-featured episode-card p-8 md:p-12">
+          <p class="font-mono text-xs uppercase tracking-wider opacity-80 mb-4">
+            {FEATURED_EPISODES[0].exitType} · {FEATURED_EPISODES[0].industryBefore} · {FEATURED_EPISODES[0].durationMin} min
+          </p>
+          <h2 class="text-3xl md:text-4xl font-display font-black mb-6 leading-tight">
+            {FEATURED_EPISODES[0].title}
+          </h2>
+          <p class="font-serif italic text-xl mb-6 leading-snug opacity-95">
+            "{FEATURED_EPISODES[0].pullQuote}"
+          </p>
+          <p class="font-body text-base leading-relaxed mb-6 opacity-90">
+            <strong>Guest:</strong> {FEATURED_EPISODES[0].guestBio}
+          </p>
+          <a href={`/episodes/${FEATURED_EPISODES[0].slug}`} class="btn-coral">
+            Read the transcript &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+  )}
+
+  {/* Recent episodes */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <div class="flex items-baseline justify-between mb-8">
+        <p class="eyebrow">/ Recent episodes</p>
+        <a href="/episodes" class="font-mono text-xs text-purple hover:text-coral uppercase tracking-wider">All 207 &rarr;</a>
+      </div>
+      <div class="space-y-5">
+        {recent.map((ep) => (
+          <a href={`/episodes/${ep.slug}`} class="block episode-card">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-meta">Ep. {ep.number}</span>
+              <span class="tag-meta">{ep.exitType}</span>
+              <span class="tag-meta">{ep.durationMin} min</span>
+              {ep.isMembersOnly && <span class="tag-meta" style="color:var(--color-coral-deep);border-color:var(--color-coral)">Members only</span>}
+            </div>
+            <h3 class="text-xl md:text-2xl font-display font-black text-purple mb-2 leading-tight">
+              {ep.title}
+            </h3>
+            <p class="font-body text-sm text-stone leading-relaxed">
+              {ep.guestBio.split('.')[0]}.
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* The numbers */}
+  <section class="purple-strip px-4 md:px-6 py-20">
+    <div class="reading-column">
+      <p class="eyebrow mb-8" style="color:var(--color-coral)">/ Four years in</p>
+      <div class="grid grid-cols-2 gap-8 md:gap-12">
+        <div>
+          <div class="stat-display">{SHOW.episodes}</div>
+          <p class="font-mono text-sm uppercase tracking-wider mt-2 opacity-90">episodes</p>
+        </div>
+        <div>
+          <div class="stat-display">{SHOW.weeklyListeners.toLocaleString()}</div>
+          <p class="font-mono text-sm uppercase tracking-wider mt-2 opacity-90">weekly listeners</p>
+        </div>
+        <div>
+          <div class="stat-display">{SHOW.paidMembers.toLocaleString()}</div>
+          <p class="font-mono text-sm uppercase tracking-wider mt-2 opacity-90">paid members</p>
+        </div>
+        <div>
+          <div class="stat-display">{SHOW.averageEpisodeMinutes}</div>
+          <p class="font-mono text-sm uppercase tracking-wider mt-2 opacity-90">avg minutes / episode</p>
+        </div>
+      </div>
+      <p class="font-serif italic text-lg mt-12 opacity-90 leading-snug">
+        Listener counts and member counts are illustrative — this is a portfolio demo. The product surface is real.
+      </p>
+    </div>
+  </section>
+
+  {/* Journal teaser */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column">
+      <p class="eyebrow mb-6">/ From the journal</p>
+      <div class="space-y-6">
+        {recentEssays.map((post) => (
+          <a href={`/journal/${post.slug}`} class="block">
+            <p class="font-mono text-xs text-stone uppercase tracking-wider mb-2">
+              {post.publishedAt} · {post.readMinutes} min read
+            </p>
+            <h3 class="text-2xl font-display font-black text-purple hover:text-coral transition-colors mb-2 leading-tight">
+              {post.title}
+            </h3>
+            <p class="font-body text-base text-ink leading-relaxed">
+              {post.description}
+            </p>
+          </a>
+        ))}
+      </div>
+      <a href="/journal" class="font-mono text-xs text-purple hover:text-coral uppercase tracking-wider mt-8 inline-block">All essays &rarr;</a>
+    </div>
+  </section>
+
+  {/* Membership CTA */}
+  <section class="coral-strip px-4 md:px-6 py-20">
+    <div class="reading-column">
+      <p class="eyebrow mb-6" style="color:var(--color-purple-deep)">/ Become a member</p>
+      <h2 class="text-4xl md:text-5xl font-display font-black mb-6 leading-tight">
+        $8 a month. Transcripts included. No filler.
+      </h2>
+      <p class="font-serif italic text-xl mb-8 leading-snug">
+        Members get every episode 24 hours early, the full searchable transcript archive (back to ep. 1), chapter markers, the Slack mirror, and the AI clip generator. That is the entire offer.
+      </p>
+      <a href="/membership" class="btn-purple">Become a member &rarr;</a>
+    </div>
+  </section>
+
+  {/* Sponsor + portal split */}
+  <section class="px-4 md:px-6 py-16 section-rule">
+    <div class="reading-column grid gap-8 md:grid-cols-2">
+      <div>
+        <p class="eyebrow mb-4">/ For brands</p>
+        <h3 class="text-2xl font-display font-black text-purple mb-4 leading-tight">Sponsor a read.</h3>
+        <p class="font-body text-base text-ink mb-6 leading-relaxed">
+          Pre-roll, mid-roll, post-roll, or a five-minute dedicated segment. Rate card and brief form on the sponsor page.
+        </p>
+        <a href="/sponsor" class="font-mono text-xs text-purple hover:text-coral uppercase tracking-wider">Rate card &rarr;</a>
+      </div>
+      <div>
+        <p class="eyebrow mb-4">/ Already a member?</p>
+        <h3 class="text-2xl font-display font-black text-purple mb-4 leading-tight">Member portal.</h3>
+        <p class="font-body text-base text-ink mb-6 leading-relaxed">
+          Transcript search, members-only Slack, your clip library, your subscription.
+        </p>
+        <a href="/portal" class="font-mono text-xs text-purple hover:text-coral uppercase tracking-wider">Open the portal &rarr;</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

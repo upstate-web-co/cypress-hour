@@ -1,0 +1,29 @@
+{
+  "name": "cypress-hour",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro build && wrangler pages dev dist --port 4321 --compatibility-date 2024-09-23",
+    "deploy:preview": "astro build && wrangler pages deploy dist --project-name cypress-hour --branch phase-a-build --commit-dirty=true",
+    "deploy:prod": "astro build && wrangler pages deploy dist --project-name cypress-hour --branch main --commit-dirty=true",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "astro": "5.18.1",
+    "@astrojs/cloudflare": "12.6.13",
+    "zod": "^3.24.0"
+  },
+  "engines": {
+    "node": ">=20.0.0 <22.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.0.0",
+    "@cloudflare/workers-types": "^4.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

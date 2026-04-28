@@ -1,0 +1,344 @@
+/* @import rules must come first per CSS spec */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800;9..144,900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* Cypress Hour — Direction C (Rule 73 picked from 3 candidates).
+   Bold Expressive — Druk Wide Bold + Geist Sans (substituted with
+   Archivo Black + Inter for the free-Google-Fonts demo build).
+   Palette: Post-Corporate Creator — #5B21B6 true purple + #FB7185 sunset coral
+   over warm bone-white.
+   Layout: Vertical-Mobile-First Single-Column with Strong Type Hierarchy.
+   Motion: G — Immersive Narrative (top-to-bottom reads like a transcript).
+   Anti: NOT bro-podcast. NOT Substack-house-style. NOT NPR-corporate.
+   NOT generic-podcast (no "Listen to the latest episode" hero H1).
+   Cross-family pick: Stratechery editorial-argumentative + Acquired research-
+   dense + NYT audio-brand premium. Forced AWAY from all 8 prior demo orbits. */
+
+@theme {
+  --color-purple: #5B21B6;
+  --color-purple-deep: #3D1281;
+  --color-purple-soft: #7C3AED;
+  --color-coral: #FB7185;
+  --color-coral-deep: #E11D48;
+  --color-bone: #FBF7F4;
+  --color-bone-deep: #F0E9E1;
+  --color-ink: #0F0A1F;
+  --color-ink-soft: #2D1B4E;
+  --color-stone: #6B5E7A;
+  --color-line: #E5DCD3;
+  --color-line-strong: #B8AAB8;
+
+  --font-display: "Archivo Black", "Helvetica Neue", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+}
+
+html {
+  font-family: var(--font-body);
+  background: var(--color-bone);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-bone);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-coral);
+  color: var(--color-purple-deep);
+}
+
+/* Reading column — single-column max-width discipline */
+.reading-column {
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reading-column-wide {
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Coral-underline link */
+.coral-link {
+  background-image: linear-gradient(var(--color-coral), var(--color-coral));
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  color: var(--color-purple);
+  transition: background-size 200ms ease, color 200ms ease;
+  padding-bottom: 1px;
+  font-weight: 500;
+}
+.coral-link:hover {
+  background-size: 100% 100%;
+  color: var(--color-bone);
+}
+
+/* Primary CTA — purple chunky */
+.btn-purple {
+  background: var(--color-purple);
+  color: var(--color-bone);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid var(--color-purple);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  transition: background 150ms ease, transform 150ms ease;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+}
+.btn-purple:hover {
+  background: var(--color-coral);
+  border-color: var(--color-coral);
+  color: var(--color-purple-deep);
+  transform: translateY(-1px);
+}
+
+/* Coral accent CTA */
+.btn-coral {
+  background: var(--color-coral);
+  color: var(--color-purple-deep);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid var(--color-coral);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  transition: background 150ms ease, transform 150ms ease;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+}
+.btn-coral:hover {
+  background: var(--color-purple);
+  color: var(--color-bone);
+  transform: translateY(-1px);
+}
+
+/* Outline */
+.btn-outline {
+  background: transparent;
+  color: var(--color-purple);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid var(--color-purple);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  transition: background 150ms ease, color 150ms ease;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+}
+.btn-outline:hover {
+  background: var(--color-purple);
+  color: var(--color-bone);
+}
+
+/* Eyebrow — mono uppercase over coral */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--color-coral-deep);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Episode meta tag */
+.tag-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--color-purple);
+  border: 1px solid var(--color-line-strong);
+  padding: 0.25rem 0.6rem;
+  font-weight: 500;
+  display: inline-block;
+  background: var(--color-bone);
+  border-radius: 2px;
+}
+
+/* Episode card — vertical single-column */
+.episode-card {
+  background: var(--color-bone);
+  border: 1px solid var(--color-line);
+  padding: 1.75rem;
+  transition: border-color 200ms ease, transform 200ms ease;
+  border-radius: 2px;
+}
+.episode-card:hover {
+  border-color: var(--color-purple);
+  transform: translateX(4px);
+}
+
+/* Featured episode card */
+.episode-featured {
+  background: var(--color-purple);
+  color: var(--color-bone);
+  border: none;
+}
+.episode-featured h2, .episode-featured h3 { color: var(--color-bone); }
+.episode-featured:hover {
+  background: var(--color-purple-deep);
+  transform: translateX(0);
+}
+
+/* Coral accent block */
+.block-coral {
+  background: var(--color-coral);
+  color: var(--color-purple-deep);
+}
+
+/* Section rule */
+.section-rule {
+  border-top: 1px solid var(--color-line);
+}
+.section-rule-strong {
+  border-top: 4px solid var(--color-purple);
+}
+
+/* Pull quote — display serif italic, large */
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-purple);
+  border-left: 4px solid var(--color-coral);
+  padding-left: 1.75rem;
+}
+
+/* Form input */
+.input-purple {
+  font-family: var(--font-body);
+  background: var(--color-bone);
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-ink);
+  padding: 0.875rem 1rem;
+  width: 100%;
+  font-size: 0.95rem;
+  border-radius: 2px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.input-purple::placeholder {
+  color: var(--color-stone);
+}
+.input-purple:focus {
+  outline: none;
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 2px rgba(91, 33, 182, 0.15);
+}
+
+/* Stat block — coral display */
+.stat-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 0.95;
+  color: var(--color-coral);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/* Purple strip */
+.purple-strip {
+  background: var(--color-purple);
+  color: var(--color-bone);
+}
+
+/* Coral strip */
+.coral-strip {
+  background: var(--color-coral);
+  color: var(--color-purple-deep);
+}
+
+/* Immersive narrative motion — long scroll reveal (Motion G) */
+@keyframes immersive-narrative {
+  from { opacity: 0; transform: translateY(48px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.immersive-reveal {
+  animation: immersive-narrative 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Transcript-style scrubber line */
+.scrubber-line {
+  height: 4px;
+  background: var(--color-line);
+  position: relative;
+  border-radius: 2px;
+}
+.scrubber-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 38%;
+  background: var(--color-coral);
+  border-radius: 2px;
+}
+
+/* Drop cap for first paragraph */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  float: left;
+  line-height: 0.85;
+  padding: 0.4rem 0.6rem 0 0;
+  color: var(--color-purple);
+  font-weight: 900;
+}
+
+/* Marginalia — small tan note in side margin */
+.marginalia {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-stone);
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
